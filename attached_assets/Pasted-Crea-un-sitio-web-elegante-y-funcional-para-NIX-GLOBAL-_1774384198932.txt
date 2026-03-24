@@ -1,0 +1,90 @@
+Crea un sitio web elegante y funcional para "NIX GLOBAL TRADE" - una pagina de venta de celulares que busca vender a los precios mas bajos, ubicado en PERÚ.
+
+DISEÑO Y ESTÉTICA:
+- Paleta de colores: negro mate (#1C1C1C), dorado suave (#D4AF37), blanco crema (#FFFEF7), rojo (#FF0000)
+- Tipografía: Serif elegante para títulos (estilo Playfair Display), sans-serif limpia para cuerpo de texto
+- Fotografía gastronómica de alta calidad (usa placeholders de Unsplash)
+- Animaciones suaves al hacer scroll con fade-in
+- Espaciado generoso entre secciones para respirar
+
+HERO SECTION:
+- Imagen fullscreen de un celular iPhone
+- Overlay oscuro sutil para legibilidad (40% opacity)
+- Dos botones CTA: "Rellena el formulario" (dorado) y "Ver catalogo" (outline blanco)
+- Indicador de scroll animado en la parte inferior
+
+SOBRE NOSOTROS:
+- Layout en dos columnas: texto izquierda, imagen derecha
+- Descripción de la empresa (2-3 párrafos)
+- Misión 
+- Foto de un iPhone
+- Estadísticas destacadas con iconos
+MENÚ INTERACTIVO:
+- Diseño de Catalogo con:
+  - Nombre de los iphones
+  - Descripción de cada iphone
+  - Precio alineado a la derecha
+  - Iconos para descripcion de los iphone 
+
+GALERÍA:
+- Grid de fotos tipo masonry (3 columnas en desktop, 1 en mobile)
+- Combinación de fotos de: Iphone, ambiente,equipo, 
+- Lightbox al hacer clic en las imágenes para verlas en grande
+- Hover effect sutil: zoom ligero + overlay con ícono de expandir
+
+SISTEMA DE RESERVACIONES:
+- Formulario en tarjeta destacada con fondo blanco sobre imagen de fondo
+- Campos necesarios:
+  - Nombre y Apellido 
+  - DNI
+  - Numero de telefono
+  - Tracking de Ebay
+  - Comentarios (opcional)
+- Botón "Confirmar envio" con animación al hacer hover
+- Mensaje de confirmación después del submit con animación
+- Alternativa: botón de "Llamar para contacar" con número de teléfono
+
+RESEÑAS Y TESTIMONIALES:
+- Carousel automático de 3-4 testimoniales
+- Cada testimonial con:
+  - Texto de la reseña (2-3 líneas)
+  - Nombre del cliente
+  - Calificación en estrellas (5 estrellas)
+  - Foto del cliente (opcional, usar avatares si no)
+- Botón "Déjanos tu reseña"
+
+CONTACTO:
+  - Teléfono clickeable para llamar desde móvil
+  - Email con ícono
+  - Horarios de servicio
+
+- Links a redes sociales con iconos: Instagram, Facebook, WhatsApp
+
+FOOTER:
+- Fondo oscuro (#1C1C1C)
+- Tres columnas en desktop:
+  1. Logo y breve descripción
+  2. Links rápidos (Inicio, Catalogo, Formulario, Contacto)
+  3. Newsletter signup: "Recibe nuestras promociones especiales"
+- Redes sociales con íconos dorados
+- Barra inferior con copyright y "Diseñado por [tu nombre]"
+- Íconos de métodos de pago aceptados
+
+CARACTERÍSTICAS TÉCNICAS:
+- 100% responsive (mobile-first approach)
+- Smooth scroll entre secciones
+- Navbar fijo que se hace más pequeño al hacer scroll
+- Lazy loading en todas las imágenes
+- Animaciones de entrada en elementos (fade, slide up)
+- Formularios con validación básica
+- Hover states en todos los botones y links
+- Optimización de imágenes para carga rápida
+
+MOBILE CONSIDERATIONS:
+- Catalogo animado
+- Botones de CTA más grandes (fácil de tocar)
+- Galería en una sola columna
+- Formulario de reservación en ancho completo
+- Botones de llamada directa "click to call"
+
+El diseño debe sentirse sofisticado pero acogedor, como la experiencia de cenar en el restaurante. Prioriza la legibilidad, imágenes de calidad y facilidad de navegación.

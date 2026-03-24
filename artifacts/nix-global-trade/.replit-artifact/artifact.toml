@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "NIX GLOBAL TRADE"
+version = "1.0.0"
+id = "artifacts/nix-global-trade"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 24020
+
+[services.development]
+run = "pnpm --filter @workspace/nix-global-trade run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/nix-global-trade", "run", "build" ]
+publicDir = "artifacts/nix-global-trade/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "24020"
+BASE_PATH = "/"

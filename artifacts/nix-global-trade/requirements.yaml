@@ -1,0 +1,20 @@
+packages:
+  "framer-motion": "For stunning page transitions, scroll animations, and premium interactive feel"
+  "clsx": "Utility for constructing className strings conditionally"
+  "tailwind-merge": "Utility for merging Tailwind CSS classes without style conflicts"
+  "react-hook-form": "Form state management and validation"
+  "@hookform/resolvers": "Zod resolver for react-hook-form"
+  "zod": "Schema validation for forms"
+  "date-fns": "For formatting dates in the order tracking timeline"
+
+images:
+  - path: "artifacts/nix-global-trade/public/images/hero-bg.png"
+    description: "Ultra luxury abstract dark background with subtle gold dust, sleek tech aesthetic, extremely elegant and high-end"
+    aspect_ratio: "16:9"
+  - path: "artifacts/nix-global-trade/public/images/about-iphone.png"
+    description: "A beautiful, photorealistic presentation of a premium smartphone floating on a dark background with dramatic cinematic gold lighting"
+    aspect_ratio: "4:3"
+
+notes:
+  - "Assuming generated hooks from @workspace/api-client-react are available"
+  - "Auth tokens will be stored in localStorage and passed in headers manually via hook options to ensure they reach the backend"

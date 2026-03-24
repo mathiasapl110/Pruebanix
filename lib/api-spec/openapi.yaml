@@ -1,22 +1,28 @@
 openapi: 3.1.0
 info:
-  # Do not change the title, if the title changes, the import paths will be broken
   title: Api
   version: 0.1.0
-  description: API specification
+  description: NIX GLOBAL TRADE API
 servers:
   - url: /api
     description: Base API path
 tags:
   - name: health
     description: Health operations
+  - name: auth
+    description: Authentication operations
+  - name: products
+    description: Product catalog operations
+  - name: orders
+    description: Order operations
+  - name: tracking
+    description: Order tracking operations
 paths:
   /healthz:
     get:
       operationId: healthCheck
       tags: [health]
       summary: Health check
-      description: Returns server health status
       responses:
         "200":
           description: Healthy
@@ -24,6 +30,253 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/HealthStatus"
+
+  /auth/register:
+    post:
+      operationId: registerUser
+      tags: [auth]
+      summary: Register a new user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RegisterRequest"
+      responses:
+        "201":
+          description: User registered
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthResponse"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /auth/login:
+    post:
+      operationId: loginUser
+      tags: [auth]
+      summary: Login
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LoginRequest"
+      responses:
+        "200":
+          description: Login successful
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthResponse"
+        "401":
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /auth/me:
+    get:
+      operationId: getCurrentUser
+      tags: [auth]
+      summary: Get current user
+      responses:
+        "200":
+          description: Current user
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /auth/logout:
+    post:
+      operationId: logoutUser
+      tags: [auth]
+      summary: Logout
+      responses:
+        "200":
+          description: Logged out
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MessageResponse"
+
+  /products:
+    get:
+      operationId: getProducts
+      tags: [products]
+      summary: Get all products
+      responses:
+        "200":
+          description: List of products
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Product"
+
+  /orders:
+    post:
+      operationId: createOrder
+      tags: [orders]
+      summary: Create an order
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateOrderRequest"
+      responses:
+        "201":
+          description: Order created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Order"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+    get:
+      operationId: getMyOrders
+      tags: [orders]
+      summary: Get my orders
+      responses:
+        "200":
+          description: List of orders
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Order"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /orders/all:
+    get:
+      operationId: getAllOrders
+      tags: [orders]
+      summary: Get all orders (admin)
+      responses:
+        "200":
+          description: All orders
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Order"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /orders/{id}:
+    get:
+      operationId: getOrder
+      tags: [orders]
+      summary: Get order by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Order details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Order"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /orders/{id}/tracking:
+    patch:
+      operationId: updateOrderTracking
+      tags: [tracking]
+      summary: Update order tracking status (admin)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateTrackingRequest"
+      responses:
+        "200":
+          description: Tracking updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Order"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /reviews:
+    get:
+      operationId: getReviews
+      tags: [products]
+      summary: Get reviews
+      responses:
+        "200":
+          description: List of reviews
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Review"
+
 components:
   schemas:
     HealthStatus:
@@ -34,3 +287,253 @@ components:
       required:
         - status
 
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+      required:
+        - error
+
+    MessageResponse:
+      type: object
+      properties:
+        message:
+          type: string
+      required:
+        - message
+
+    RegisterRequest:
+      type: object
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+        phone:
+          type: string
+      required:
+        - firstName
+        - lastName
+        - email
+        - password
+
+    LoginRequest:
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+      required:
+        - email
+        - password
+
+    AuthResponse:
+      type: object
+      properties:
+        user:
+          $ref: "#/components/schemas/User"
+        token:
+          type: string
+      required:
+        - user
+        - token
+
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        phone:
+          type: string
+        isAdmin:
+          type: boolean
+        createdAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - firstName
+        - lastName
+        - email
+        - isAdmin
+        - createdAt
+
+    Product:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        description:
+          type: string
+        storage:
+          type: string
+        color:
+          type: string
+        price:
+          type: number
+        imageUrl:
+          type: string
+        category:
+          type: string
+        features:
+          type: array
+          items:
+            type: string
+        inStock:
+          type: boolean
+      required:
+        - id
+        - name
+        - description
+        - price
+        - inStock
+
+    CreateOrderRequest:
+      type: object
+      properties:
+        productId:
+          type: integer
+        firstName:
+          type: string
+        lastName:
+          type: string
+        dni:
+          type: string
+        phone:
+          type: string
+        ebayTracking:
+          type: string
+        comments:
+          type: string
+        quantity:
+          type: integer
+      required:
+        - productId
+        - firstName
+        - lastName
+        - dni
+        - phone
+        - ebayTracking
+
+    Order:
+      type: object
+      properties:
+        id:
+          type: integer
+        userId:
+          type: integer
+        productId:
+          type: integer
+        productName:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        dni:
+          type: string
+        phone:
+          type: string
+        ebayTracking:
+          type: string
+        comments:
+          type: string
+        quantity:
+          type: integer
+        totalPrice:
+          type: number
+        status:
+          type: string
+          enum: [pending, confirmed, purchased, shipped, in_transit, customs, delivered, cancelled]
+        trackingSteps:
+          type: array
+          items:
+            $ref: "#/components/schemas/TrackingStep"
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - userId
+        - productId
+        - firstName
+        - lastName
+        - dni
+        - phone
+        - ebayTracking
+        - quantity
+        - status
+        - createdAt
+        - updatedAt
+
+    TrackingStep:
+      type: object
+      properties:
+        id:
+          type: integer
+        orderId:
+          type: integer
+        status:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+        completedAt:
+          type: string
+          format: date-time
+        isCompleted:
+          type: boolean
+      required:
+        - id
+        - orderId
+        - status
+        - title
+        - isCompleted
+
+    UpdateTrackingRequest:
+      type: object
+      properties:
+        status:
+          type: string
+          enum: [pending, confirmed, purchased, shipped, in_transit, customs, delivered, cancelled]
+        trackingNote:
+          type: string
+      required:
+        - status
+
+    Review:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        text:
+          type: string
+        rating:
+          type: integer
+        avatar:
+          type: string
+      required:
+        - id
+        - name
+        - text
+        - rating
